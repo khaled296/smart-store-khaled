@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سلة التسوق - رقمي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Cairo", sans-serif;
+      }
+      .quantity-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .quantity-btn:hover {
+        transform: scale(1.1);
+      }
+      .payment-method {
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .payment-method:hover {
+        border-color: #3b82f6;
+        background-color: #f8fafc;
+      }
+      .payment-method.selected {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+      }
+    </style>
+  </head>
+  <body class="font-sans bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <!-- ✅ يمين: اللوجو + الروابط -->
+        <div class="flex items-center space-x-6 space-x-reverse">
+          <!-- 🔵 Logo -->
+          <h1 class="text-6xl font-bold text-blue-600">رقمي</h1>
+          <!-- 🔘 زر إظهار القائمة في الموبايل -->
+          <button
+            id="menu-toggle"
+            class="md:hidden text-2xl text-gray-800 ml-2"
+          >
+            ☰
+          </button>
+
+          <!-- 🔵 الروابط -->
+          <nav
+            id="main-nav"
+            class="hidden md:flex items-center space-x-4 space-x-reverse text-sm text-gray-800 relative flex-col md:flex-row bg-white md:bg-transparent absolute md:static top-20 right-4 md:right-0 border md:border-0 p-4 md:p-0 shadow-md md:shadow-none z-50 rounded-md md:rounded-none w-60 md:w-auto"
+          >
+            <a href="indexx.html" class="hover:text-blue-600 font-bold"
+              >الرئيسية</a
+            >
+
+            <!-- 🔽 Dropdown -->
+            <div class="relative group">
+              <button class="hover:text-blue-600 font-bold">المنتجات</button>
+              <div
+                class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 shadow-md rounded-md hidden group-hover:block z-50"
+              >
+                <ul class="text-sm text-right p-2 space-y-1">
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >تجارة وأعمال</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >روايات وقصص</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >تعليم وأطفال</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >اشتراكات</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >طبخ</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >ألعاب وترفيه</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >صحة ورياضة</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >خدمات</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >مجانية</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >قوالب</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="block px-3 py-1 hover:bg-gray-100 rounded"
+                      >رمضان</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <a href="#promote" class="hover:text-blue-600 font-bold"
+              >اعرض منتجاتك معنا</a
+            >
+            <a href="#blog" class="hover:text-blue-600 font-bold">المدونة</a>
+          </nav>
+        </div>
+
+        <!-- ✅ يسار: السلة + تسجيل الدخول -->
+        <div class="flex items-center space-x-4 space-x-reverse">
+          <a
+            href="cart.html"
+            class="text-gray-700 hover:text-blue-600 text-xl relative"
+          >
+            🛒<span
+              id="cart-count"
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+              >0</span
+            >
+          </a>
+          <a
+            href="#"
+            id="login-link"
+            class="text-sm text-blue-600 hover:underline"
+          >
+            تسجيل الدخول
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Cart Items Section -->
+        <div class="lg:col-span-2">
+          <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">سلة التسوق</h2>
+
+            <!-- Cart Items Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b border-gray-200">
+                    <th class="text-right py-3 px-2">المنتج</th>
+                    <th class="text-center py-3 px-2">السعر</th>
+                    <th class="text-center py-3 px-2">الكمية</th>
+                    <th class="text-center py-3 px-2">الإجمالي</th>
+                  </tr>
+                </thead>
+                <tbody id="cart-items">
+                  <!-- Cart items will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+
+            <div id="empty-cart" class="text-center py-8 hidden">
+              <p class="text-gray-500 text-lg">سلة التسوق فارغة</p>
+              <a
+                href="indexx.html"
+                class="text-blue-600 hover:underline mt-2 inline-block"
+              >
+                العودة للتسوق
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="lg:col-span-1">
+          <div class="bg-white shadow-md rounded-lg p-6 sticky top-24">
+            <h3 class="text-xl font-bold mb-4">ملخص السلة</h3>
+
+            <!-- Order Summary -->
+            <div class="space-y-3 mb-6">
+              <div class="flex justify-between">
+                <span>الإجمالي الفرعي</span>
+                <span id="subtotal">0.00 ر.س</span>
+              </div>
+              <div class="flex justify-between">
+                <span>التوفير</span>
+                <span id="savings" class="text-green-600">0.00 ر.س</span>
+              </div>
+              <hr class="border-gray-200" />
+              <div class="flex justify-between text-lg font-bold">
+                <span>الإجمالي النهائي (ريال)</span>
+                <span id="cart-total">0.00 ر.س</span>
+              </div>
+            </div>
+
+            <!-- Terms Agreement -->
+            <div class="mb-6">
+              <label class="flex items-start space-x-2 space-x-reverse text-sm">
+                <input type="checkbox" id="terms-checkbox" class="mt-1" />
+                <span
+                  >أوافق على
+                  <a href="#" class="text-blue-600 hover:underline"
+                    >الشروط والأحكام</a
+                  ></span
+                >
+              </label>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="mb-6">
+              <h4 class="font-bold mb-3">طرق دفع آمنة</h4>
+              <div class="space-y-3">
+                <div class="payment-method" data-method="visa">
+                  <div class="flex items-center space-x-3 space-x-reverse">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="visa"
+                      class="text-blue-600"
+                    />
+                    <i class="fab fa-cc-visa text-2xl text-blue-600"></i>
+                    <span>فيزا / ماستركارد</span>
+                  </div>
+                </div>
+
+                <div class="payment-method" data-method="paypal">
+                  <div class="flex items-center space-x-3 space-x-reverse">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="paypal"
+                      class="text-blue-600"
+                    />
+                    <i class="fab fa-cc-paypal text-2xl text-blue-600"></i>
+                    <span>باي بال</span>
+                  </div>
+                </div>
+
+                <div class="payment-method" data-method="apple-pay">
+                  <div class="flex items-center space-x-3 space-x-reverse">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="apple-pay"
+                      class="text-blue-600"
+                    />
+                    <i class="fab fa-apple-pay text-2xl text-gray-800"></i>
+                    <span>Apple Pay</span>
+                  </div>
+                </div>
+
+                <div class="payment-method" data-method="bank-transfer">
+                  <div class="flex items-center space-x-3 space-x-reverse">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="bank-transfer"
+                      class="text-blue-600"
+                    />
+                    <i class="fas fa-university text-2xl text-green-600"></i>
+                    <span>تحويل بنكي</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Checkout Button -->
+            <button
+              id="checkout-btn"
+              class="w-full bg-gray-600 text-white py-3 rounded-lg font-bold text-lg transition hover:bg-gray-700"
+              disabled
+            >
+              إكمال الطلب والدفع
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div
+      id="login-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">تسجيل الدخول</h2>
+          <button
+            id="close-login-modal"
+            class="text-gray-500 hover:text-gray-700 text-2xl"
+          >
+            &times;
+          </button>
+        </div>
+
+        <p class="text-gray-600 mb-6 text-center">
+          مرحباً بعودتك، عند إدخال بريدك الإلكتروني ستصلك رسالة تحتوي على رابط
+          الدخول لحسابك
+        </p>
+
+        <form id="login-form">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+              بريدك الإلكتروني *
+            </label>
+            <input
+              type="email"
+              id="login-email"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition"
+          >
+            إرسال رابط الدخول
+          </button>
+
+          <div class="text-center mt-4">
+            <a
+              href="#"
+              id="show-register"
+              class="text-blue-600 hover:underline text-sm"
+            >
+              للتسجيل اضغط هنا
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div
+      id="register-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center"
+    >
+      <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">تسجيل</h2>
+          <button
+            id="close-register-modal"
+            class="text-gray-500 hover:text-gray-700 text-2xl"
+          >
+            &times;
+          </button>
+        </div>
+
+        <p class="text-gray-600 mb-6 text-center">
+          سجل معنا الآن لشراء المنتجات بشكل أسهل
+        </p>
+
+        <form id="register-form">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+              الاسم
+            </label>
+            <input
+              type="text"
+              id="register-name"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+              البريد الإلكتروني *
+            </label>
+            <input
+              type="email"
+              id="register-email"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition"
+          >
+            تسجيل
+          </button>
+
+          <div class="text-center mt-4">
+            <a
+              href="#"
+              id="show-login"
+              class="text-blue-600 hover:underline text-sm"
+            >
+              عندك حساب؟ سجل دخولك الآن
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
